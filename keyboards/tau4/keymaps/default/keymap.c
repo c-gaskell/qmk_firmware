@@ -87,3 +87,42 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         [_ADJUST] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     };
 #endif
+
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
+    static const char PROGMEM tau4logo_1[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x00};
+    static const char PROGMEM tau4logo_2[] = {0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0x00};
+    static const char PROGMEM tau4logo_3[] = {0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0x00};
+
+    static const char PROGMEM layers[][2] = {
+        {0x20, 0x00},  // " "
+        {0x89, 0x00},  // Numpad
+        {0x87, 0x00},  // Lower
+        {0x86, 0x00},  // Raise
+        {0x88, 0x00},  // Adjust
+    };
+
+    oled_write_P(tau4logo_1, false);
+    oled_write_P(PSTR("  Tau.4 v1.1\n"), false);
+
+    oled_write_P(tau4logo_2, false); oled_write_P(PSTR("\n"), false);
+
+    oled_write_P(tau4logo_3, false);
+    oled_write_P(PSTR("Layout WPM RGB\n"), false);
+
+    // LAYOUT: TODO
+    oled_write_P(PSTR("      QRTY "), false);
+
+    // Layer
+    oled_write_P(layers[get_highest_layer(layer_state)], false);
+    oled_write_P(PSTR(" "), false);
+
+    // WPM: TODO
+    oled_write_P(PSTR("--- "), false);
+
+    // RGB: TODO
+    oled_write_P(PSTR("----"), false);
+
+    return false;
+}
+#endif
