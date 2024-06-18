@@ -121,8 +121,65 @@ bool oled_task_user(void) {
     oled_write(get_u8_str(get_current_wpm(), '0'), false);
     oled_write_P(PSTR(" "), false);
 
-    // RGB: TODO
-    oled_write_P(PSTR("----"), false);
+    // RGB
+    switch (rgblight_get_mode()) {
+        case RGBLIGHT_MODE_STATIC_LIGHT :
+            oled_write_P(PSTR("STAT"), false);
+            break;
+        case RGBLIGHT_MODE_BREATHING :
+        case RGBLIGHT_MODE_BREATHING + 1:
+        case RGBLIGHT_MODE_BREATHING + 2:
+        case RGBLIGHT_MODE_BREATHING + 3:
+            oled_write_P(PSTR("BRTH"), false);
+            break;
+        case RGBLIGHT_MODE_RAINBOW_MOOD :
+        case RGBLIGHT_MODE_RAINBOW_MOOD + 1:
+        case RGBLIGHT_MODE_RAINBOW_MOOD + 2:
+            oled_write_P(PSTR("RNBW"), false);
+            break;
+        case RGBLIGHT_MODE_RAINBOW_SWIRL :
+        case RGBLIGHT_MODE_RAINBOW_SWIRL + 1:
+        case RGBLIGHT_MODE_RAINBOW_SWIRL + 2:
+        case RGBLIGHT_MODE_RAINBOW_SWIRL + 3:
+        case RGBLIGHT_MODE_RAINBOW_SWIRL + 4:
+        case RGBLIGHT_MODE_RAINBOW_SWIRL + 5:
+            oled_write_P(PSTR("SWRL"), false);
+            break;
+        case RGBLIGHT_MODE_SNAKE :
+        case RGBLIGHT_MODE_SNAKE + 1:
+        case RGBLIGHT_MODE_SNAKE + 2:
+        case RGBLIGHT_MODE_SNAKE + 3:
+        case RGBLIGHT_MODE_SNAKE + 4:
+        case RGBLIGHT_MODE_SNAKE + 5:
+            oled_write_P(PSTR("SNKE"), false);
+            break;
+        case RGBLIGHT_MODE_KNIGHT :
+        case RGBLIGHT_MODE_KNIGHT + 1:
+        case RGBLIGHT_MODE_KNIGHT + 2:
+            oled_write_P(PSTR("KNGT"), false);
+            break;
+        case RGBLIGHT_MODE_CHRISTMAS :
+            oled_write_P(PSTR("XMAS"), false);
+            break;
+        case RGBLIGHT_MODE_STATIC_GRADIENT :
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 1:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 2:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 3:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 4:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 5:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 6:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 7:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 8:
+        case RGBLIGHT_MODE_STATIC_GRADIENT + 9:
+            oled_write_P(PSTR("GRDT"), false);
+            break;
+        case RGBLIGHT_MODE_RGB_TEST :
+            oled_write_P(PSTR("TEST"), false);
+            break;
+        default:
+            oled_write_P(PSTR("????"), false);
+            break;
+    }
 
     return false;
 }
