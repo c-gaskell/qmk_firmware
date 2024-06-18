@@ -19,6 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum layers {
     _QWERTY = 0,
+    _DVORAK,
+    _COLEMAK,
+    _COLEMAK_DH,
     _NUMPAD,
     _LOWER,
     _RAISE,
@@ -31,6 +34,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MUTE, KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,   KC_Y,   KC_U,       KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,       KC_G,   KC_H,   KC_J,       KC_K,    KC_L,    KC_SCLN, KC_QUOT,
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,   KC_N,   KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+        KC_TAB,  KC_LCTL, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_SPC, MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT),
+
+    [_DVORAK] = LAYOUT_ortho_4x12(
+        KC_MUTE, KC_QUOT, KC_COMM, KC_DOT,  KC_P,       KC_Y,   KC_F,   KC_G,       KC_C,    KC_R,    KC_L,    KC_BSPC,
+        KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,       KC_I,   KC_D,   KC_H,       KC_T,    KC_N,    KC_S,    KC_SLSH,
+        KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,       KC_X,   KC_B,   KC_M,       KC_W,    KC_V,    KC_Z,    KC_ENT,
+        KC_TAB,  KC_LCTL, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_SPC, MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT),
+
+    [_COLEMAK] = LAYOUT_ortho_4x12(
+        KC_MUTE, KC_Q,    KC_W,    KC_F,    KC_P,       KC_G,   KC_J,   KC_L,       KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+        KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,       KC_D,   KC_H,   KC_N,       KC_E,    KC_I,    KC_O,    KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,   KC_K,   KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
+        KC_TAB,  KC_LCTL, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_SPC, MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT),
+
+    [_COLEMAK_DH] = LAYOUT_ortho_4x12(
+        KC_MUTE, KC_Q,    KC_W,    KC_F,    KC_P,       KC_B,   KC_J,   KC_L,       KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
+        KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,       KC_G,   KC_M,   KC_N,       KC_E,    KC_I,    KC_O,    KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,       KC_V,   KC_K,   KC_H,       KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
         KC_TAB,  KC_LCTL, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_SPC, MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT),
 
     [_NUMPAD] = LAYOUT_ortho_4x12(
@@ -52,10 +73,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT),
 
     [_ADJUST] = LAYOUT_ortho_4x12(
-        KC_TRNS, RGB_TOG,     RGB_MOD, RGB_HUD, RGB_HUI,  RGB_SAD,  RGB_SAI, RGB_VAD, RGB_VAI, KC_TRNS, KC_TRNS, QK_BOOT,
-        KC_TRNS, RGB_M_P,     RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, KC_TRNS, KC_TRNS,
-        KC_TRNS, TG(_NUMPAD), KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, RGB_TOG,     RGB_MOD,     RGB_HUD,      RGB_HUI,         RGB_SAD,     RGB_SAI, RGB_VAD, RGB_VAI, KC_TRNS, KC_TRNS, QK_BOOT,
+        KC_TRNS, RGB_M_P,     RGB_M_B,     RGB_M_R,      RGB_M_SW,        RGB_M_SN,    RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, KC_TRNS, KC_TRNS,
+        KC_TRNS, DF(_QWERTY), DF(_DVORAK), DF(_COLEMAK), DF(_COLEMAK_DH), TG(_NUMPAD), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,         KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
 void keyboard_post_init_user(void) {
@@ -67,20 +88,15 @@ void keyboard_post_init_user(void) {
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-
-    rgblight_set_layer_state(_QWERTY, layer_state_cmp(state, _QWERTY));
-    rgblight_set_layer_state(_NUMPAD, layer_state_cmp(state, _NUMPAD));
-    rgblight_set_layer_state(_LOWER, layer_state_cmp(state, _LOWER));
-    rgblight_set_layer_state(_RAISE, layer_state_cmp(state, _RAISE));
-    rgblight_set_layer_state(_ADJUST, layer_state_cmp(state, _ADJUST));
-
-    return state;
+    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
 #ifdef ENCODER_MAP_ENABLE
     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
         [_QWERTY] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+        [_DVORAK] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+        [_COLEMAK] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
+        [_COLEMAK_DH] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
         [_NUMPAD] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
         [_LOWER] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
         [_RAISE] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
@@ -96,6 +112,9 @@ bool oled_task_user(void) {
 
     static const char PROGMEM layers[][2] = {
         [_QWERTY] = {0x20, 0x00},  // " "
+        [_DVORAK] = {0x20, 0x00},  // " "
+        [_COLEMAK] = {0x20, 0x00},  // " "
+        [_COLEMAK_DH] = {0x20, 0x00},  // " "
         [_NUMPAD] = {0x89, 0x00},  // Numpad
         [_LOWER] = {0x87, 0x00},  // Lower
         [_RAISE] = {0x86, 0x00},  // Raise
@@ -110,8 +129,19 @@ bool oled_task_user(void) {
     oled_write_P(tau4logo_3, false);
     oled_write_P(PSTR("Layout WPM RGB\n"), false);
 
-    // LAYOUT: TODO
-    oled_write_P(PSTR("      QRTY "), false);
+    // LAYOUT
+    oled_write_P(PSTR("      "), false);
+    if(IS_LAYER_ON_STATE(default_layer_state, _QWERTY)) {
+        oled_write_P(PSTR("QRTY "), false);
+    } else if(IS_LAYER_ON_STATE(default_layer_state, _DVORAK)) {
+        oled_write_P(PSTR("DVRK "), false);
+    } else if(IS_LAYER_ON_STATE(default_layer_state, _COLEMAK)) {
+        oled_write_P(PSTR("CLMK "), false);
+    } else if(IS_LAYER_ON_STATE(default_layer_state, _COLEMAK_DH)) {
+        oled_write_P(PSTR("CMDH "), false);
+    } else {
+        oled_write_P(PSTR("???? "), false);
+    }
 
     // Layer
     oled_write_P(layers[get_highest_layer(layer_state)], false);
