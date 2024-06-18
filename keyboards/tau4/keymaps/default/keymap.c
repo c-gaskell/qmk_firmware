@@ -95,11 +95,11 @@ bool oled_task_user(void) {
     static const char PROGMEM tau4logo_3[] = {0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0x00};
 
     static const char PROGMEM layers[][2] = {
-        {0x20, 0x00},  // " "
-        {0x89, 0x00},  // Numpad
-        {0x87, 0x00},  // Lower
-        {0x86, 0x00},  // Raise
-        {0x88, 0x00},  // Adjust
+        [_QWERTY] = {0x20, 0x00},  // " "
+        [_NUMPAD] = {0x89, 0x00},  // Numpad
+        [_LOWER] = {0x87, 0x00},  // Lower
+        [_RAISE] = {0x86, 0x00},  // Raise
+        [_ADJUST] = {0x88, 0x00},  // Adjust
     };
 
     oled_write_P(tau4logo_1, false);
