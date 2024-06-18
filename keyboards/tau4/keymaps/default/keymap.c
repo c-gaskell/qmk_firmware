@@ -117,8 +117,9 @@ bool oled_task_user(void) {
     oled_write_P(layers[get_highest_layer(layer_state)], false);
     oled_write_P(PSTR(" "), false);
 
-    // WPM: TODO
-    oled_write_P(PSTR("--- "), false);
+    // WPM
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+    oled_write_P(PSTR(" "), false);
 
     // RGB: TODO
     oled_write_P(PSTR("----"), false);
