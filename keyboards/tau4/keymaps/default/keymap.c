@@ -98,8 +98,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         [_COLEMAK] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
         [_COLEMAK_DH] = { ENCODER_CCW_CW(KC_WH_U, KC_WH_D) },
         [_NUMPAD] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-        [_LOWER] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
-        [_RAISE] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [_LOWER] = { ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
+        [_RAISE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
         [_ADJUST] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     };
 #endif
