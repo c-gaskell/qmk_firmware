@@ -25,7 +25,8 @@ enum layers {
     _NUMPAD,
     _LOWER,
     _RAISE,
-    _ADJUST
+    _ADJUST,
+    _PLOVER,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,10 +74,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT),
 
     [_ADJUST] = LAYOUT_ortho_4x12(
-        KC_TRNS, RGB_TOG,     RGB_MOD,     RGB_HUD,      RGB_HUI,         RGB_SAD,     RGB_SAI, RGB_VAD, RGB_VAI, KC_TRNS, KC_TRNS, QK_BOOT,
-        KC_TRNS, RGB_M_P,     RGB_M_B,     RGB_M_R,      RGB_M_SW,        RGB_M_SN,    RGB_M_K, RGB_M_X, RGB_M_G, RGB_M_T, KC_TRNS, KC_TRNS,
-        KC_TRNS, DF(_QWERTY), DF(_DVORAK), DF(_COLEMAK), DF(_COLEMAK_DH), TG(_NUMPAD), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,         KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+        KC_TRNS, RGB_TOG,     RGB_MOD,     RGB_HUD,      RGB_HUI,         RGB_SAD,     RGB_SAI,     RGB_VAD, RGB_VAI, KC_TRNS, KC_TRNS, QK_BOOT,
+        KC_TRNS, RGB_M_P,     RGB_M_B,     RGB_M_R,      RGB_M_SW,        RGB_M_SN,    RGB_M_K,     RGB_M_X, RGB_M_G, RGB_M_T, KC_TRNS, KC_TRNS,
+        KC_TRNS, DF(_QWERTY), DF(_DVORAK), DF(_COLEMAK), DF(_COLEMAK_DH), TG(_NUMPAD), TO(_PLOVER), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS,     KC_TRNS,     KC_TRNS,      KC_TRNS,         KC_TRNS,     KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+
+    [_PLOVER] = LAYOUT_ortho_4x12(
+        STN_RES1,    STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_FN,
+        KC_TRNS,     STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,
+        KC_TRNS,     STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,
+        TO(_QWERTY), KC_TRNS, KC_TRNS, STN_A,   STN_O,   STN_NB,  STN_NC,  STN_E,   STN_U,   KC_TRNS, KC_TRNS, KC_TRNS
+    ),
 };
 
 void keyboard_post_init_user(void) {
@@ -101,6 +109,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
         [_LOWER] = { ENCODER_CCW_CW(KC_WH_L, KC_WH_R) },
         [_RAISE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
         [_ADJUST] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
+        [_PLOVER] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
     };
 #endif
 
@@ -119,6 +128,7 @@ bool oled_task_user(void) {
         [_LOWER] = {0x87, 0x00},  // Lower
         [_RAISE] = {0x86, 0x00},  // Raise
         [_ADJUST] = {0x88, 0x00},  // Adjust
+        [_PLOVER] = {0x8A, 0x00},  // Plover
     };
 
     oled_write_P(tau4logo_1, false);
@@ -139,6 +149,8 @@ bool oled_task_user(void) {
         oled_write_P(PSTR("CLMK "), false);
     } else if(IS_LAYER_ON_STATE(default_layer_state, _COLEMAK_DH)) {
         oled_write_P(PSTR("CMDH "), false);
+    } else if(IS_LAYER_ON_STATE(default_layer_state, _PLOVER)) {
+        oled_write_P(PSTR("STNO "), false);
     } else {
         oled_write_P(PSTR("???? "), false);
     }
